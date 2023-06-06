@@ -7,14 +7,20 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class HttpService {
   static var _registerUrl =
-      Uri.parse('https://travel.dlhcode.com/api/register');
-  static register(email, password, nama, noHp, context) async {
+      Uri.parse('https://katering.eastbluetechnology.com/api/auth/register');
+  static register(username, email, fullName, password, noHp, alamat,
+      jenis_kelamin, context) async {
     http.Response response = await http.post(_registerUrl, body: {
-      "email": email,
-      "password": password,
-      "nama": nama,
-      "no_hp": noHp,
+      "username": username.toString(),
+      "email": email.toString(),
+      "fullName": fullName.toString(),
+      "password": password.toString(),
+      "noHp": noHp.toString(),
+      "alamat": alamat.toString(),
+      "jenisKelamin": jenis_kelamin.toString(),
+      "roleId": '2',
     });
+    print(response.body);
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body.toString());
 

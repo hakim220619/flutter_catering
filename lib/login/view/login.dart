@@ -25,11 +25,6 @@ class _LoginPageState extends State<LoginPage> {
     _passwordVisible = false;
   }
 
-  void dispose() {
-    _formKey.currentState?.dispose();
-    super.dispose();
-  }
-
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,

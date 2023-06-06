@@ -10,10 +10,13 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   late String email;
+  late String fullName;
   late String password;
-  late String nama;
+  late String username;
   late String noHp;
   late String role;
+  late String alamat;
+  var jenis_kelamin;
   final _formKey = GlobalKey<FormState>();
   bool _passwordVisible = false;
   void initState() {
@@ -23,9 +26,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(title: const Text('Register')),
       body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
+        width: MediaQuery.of(context).size.width,
         child: Form(
           key: _formKey,
           child: Column(
@@ -34,7 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 obscureText: false,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Masukan Nama Lengkap';
+                    return 'Masukan Username';
                   }
                   return null;
                 },
@@ -44,11 +49,37 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     prefixIcon: const Icon(Icons.person),
-                    labelText: 'Masukan Nama',
-                    hintText: 'Masukan Nama'),
+                    labelText: 'Masukan Username',
+                    hintText: 'Masukan Username'),
                 onChanged: (value) {
                   setState(() {
-                    nama = value;
+                    username = value;
+                  });
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                obscureText: false,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Masukan Full name';
+                  }
+                  return null;
+                },
+                maxLines: 1,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    prefixIcon:
+                        const Icon(Icons.supervised_user_circle_outlined),
+                    labelText: 'Masukan Full Name',
+                    hintText: 'Masukan Full Name'),
+                onChanged: (value) {
+                  setState(() {
+                    fullName = value;
                   });
                 },
               ),
@@ -116,13 +147,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 10,
               ),
               TextFormField(
-                obscureText: true,
+                obscureText: false,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Masukan Nomor Hp';
                   }
                   return null;
                 },
+                keyboardType: TextInputType.number,
                 maxLines: 1,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -138,13 +170,71 @@ class _RegisterPageState extends State<RegisterPage> {
                 },
               ),
               SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                obscureText: false,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Masukan Alamat';
+                  }
+                  return null;
+                },
+                maxLines: 1,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    prefixIcon: const Icon(Icons.add_home_work),
+                    labelText: 'Masukan Alamat',
+                    hintText: 'Masukan Alamat'),
+                onChanged: (value) {
+                  setState(() {
+                    alamat = value;
+                  });
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: EdgeInsets.all(1.0),
+                child: DropdownButtonFormField<String>(
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    prefixIcon: const Icon(Icons.emoji_people_outlined),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                  ),
+                  items: <String>['Laki-laki', 'Perempuan'].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: new Text(value),
+                    );
+                  }).toList(),
+                  validator: (value) {
+                    if (value == null) return 'Silahkan Masukan Jenis Kelamin';
+                    return null;
+                  },
+                  hint: new Text("Pilih Jenis Kelamin"),
+                  value: jenis_kelamin,
+                  onChanged: (value) {
+                    setState(() {
+                      jenis_kelamin = value;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(
                 height: 20,
               ),
               InkWell(
                   onTap: () async {
                     if (_formKey.currentState!.validate()) {
-                      await HttpService.register(
-                          email, password, nama, noHp, context);
+                      await HttpService.register(username, email, fullName,
+                          password, noHp, alamat, jenis_kelamin, context);
                     }
                   },
                   child: Container(
