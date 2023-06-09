@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+
+import '../service/service_product.dart';
 // import 'package:catering/product/service/service_product.dart';
 
 class DetailProduct extends StatefulWidget {
   final String id;
-  final String nama_produk;
+  final String nama_paket;
   final String harga;
-  final String stok;
+
   final String gambar;
   final String keterangan;
-  final String id_paket;
+  final String created_at;
   const DetailProduct(
       {Key? key,
       required this.id,
-      required this.nama_produk,
+      required this.nama_paket,
       required this.harga,
-      required this.stok,
       required this.gambar,
       required this.keterangan,
-      required this.id_paket})
+      required this.created_at})
       : super(key: key);
 
   @override
@@ -62,8 +63,8 @@ class _DetailProductState extends State<DetailProduct> {
               TextButton(
                 child: Text(yesbutton),
                 onPressed: () async {
-                  // await ServiceProduct.pesan(widget.id.toString(),
-                  //     jumlah.toString(), widget.harga.toString(), context);
+                  await ServiceProduct.pesan(widget.id.toString(),
+                      jumlah.toString(), widget.harga.toString(), context);
                 },
               ),
             ],
@@ -105,11 +106,11 @@ class _DetailProductState extends State<DetailProduct> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('${widget.nama_produk.toString()}',
+                          Text('${widget.nama_paket.toString()}',
                               style: const TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.bold)),
                           const SizedBox(width: 6),
-                          Text('${widget.stok.toString()}',
+                          Text('${widget.keterangan.toString()}',
                               style: const TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.bold)),
                           const SizedBox(width: 6),

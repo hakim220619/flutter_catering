@@ -13,7 +13,7 @@ class ServiceProduct {
       Uri.parse('https://app.sandbox.midtrans.com/snap/v1/transactions');
 
   static var _pesanUrl =
-      Uri.parse("https://plavon.dlhcode.com/api/tambah_pemesanan");
+      Uri.parse("https://katering.eastbluetechnology.com/api/pemesanan");
 
   static pesan(id, jumlah, harga, context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -55,7 +55,7 @@ class ServiceProduct {
       "order_id": number.toString(),
       "redirect_url": jsonMidtrans['redirect_url'].toString(),
     });
-    // print(response.body);
+    print(response.body);
     if (response.statusCode == 200) {
       // ignore: unused_local_variable
       var json = jsonDecode(response.body.toString());

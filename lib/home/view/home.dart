@@ -27,8 +27,8 @@ class _HomePageState extends State<HomePage> {
         "Accept": "application/json",
         "Authorization": "Bearer " + token.toString(),
       });
-      print(token);
-      print(response.body);
+      // print(token);
+      // print(response.body);
       if (response.statusCode == 200) {
         SharedPreferences preferences = await SharedPreferences.getInstance();
         setState(() {

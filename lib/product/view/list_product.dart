@@ -27,7 +27,7 @@ class _ListProductState extends State<ListProduct> {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       var token = preferences.getString('token');
       // print(token);
-      var url = Uri.parse('https://katering.eastbluetechnology.com/api/produk');
+      var url = Uri.parse('https://katering.eastbluetechnology.com/api/paket');
       final response = await http.get(url, headers: {
         "Accept": "application/json",
         "Authorization": "Bearer $token",
@@ -81,14 +81,14 @@ class _ListProductState extends State<ListProduct> {
                                   ) =>
                                       DetailProduct(
                                     id: _get[i]['id'].toString(),
-                                    nama_produk:
-                                        _get[i]['nama_produk'].toString(),
+                                    nama_paket:
+                                        _get[i]['nama_paket'].toString(),
                                     harga: _get[i]['harga'].toString(),
-                                    stok: _get[i]['stok'].toString(),
                                     gambar: _get[i]['gambar'].toString(),
                                     keterangan:
                                         _get[i]['keterangan'].toString(),
-                                    id_paket: _get[i]['id_paket'].toString(),
+                                    created_at:
+                                        _get[i]['created_at'].toString(),
                                   ),
                                 ),
                               );
@@ -103,7 +103,7 @@ class _ListProductState extends State<ListProduct> {
                                   ),
                                 ),
                                 Text(
-                                  '${_get[i]['nama_produk'].toString()}',
+                                  '${_get[i]['nama_paket'].toString()}',
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
