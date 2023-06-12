@@ -1,4 +1,5 @@
 import 'package:catering/home/view/home.dart';
+import 'package:catering/transaksi/view/transaksi_page.dart';
 import 'package:flutter/material.dart';
 // ignore: implementation_imports
 import 'package:flutter/src/widgets/framework.dart';
@@ -74,15 +75,15 @@ class _MenuPageState extends State<MenuPage> {
             ListTile(
               leading: Icon(Icons.money),
               title: Text("Transaksi"),
-              // onTap: () {
-              //   Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //           builder: (
-              //         context,
-              //       ) =>
-              //               transaksiPage()));
-              // },
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (
+                      context,
+                    ) =>
+                            TransaksiPage()));
+              },
             ),
             Divider(),
             ListTile(

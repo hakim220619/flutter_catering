@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:math';
-
+import 'package:catering/transaksi/view/transaksi_page.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 // ignore: unused_import
 // import 'package:catering/pay/view/pay.dart';
 // import 'package:catering/transaksi/view/transaksi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:catering/product/service/data.dart';
+
 
 class ServiceProduct {
   static var _pesanmidtransUrl =
@@ -47,22 +49,22 @@ class ServiceProduct {
       "Accept": "application/json",
       "Authorization": "Bearer " + token.toString(),
     }, body: {
-      "id_user": id_user.toString(),
-      "id_barang": id.toString(),
-      "jumlah": jumlah.toString(),
+      "idUser": id_user.toString(),
+      "idPaket": id.toString(),
+      "jumlah_pesan": jumlah.toString(),
       "harga": harga.toString(),
       "status": "belum bayar",
       "order_id": number.toString(),
       "redirect_url": jsonMidtrans['redirect_url'].toString(),
     });
-    print(response.body);
+    // print(response.body);
     if (response.statusCode == 200) {
       // ignore: unused_local_variable
       var json = jsonDecode(response.body.toString());
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => transaksiPage()),
-      // );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => TransaksiPage()),
+      );
     }
   }
 }
