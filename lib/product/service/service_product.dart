@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:catering/transaksi/view/transaksi_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
 // ignore: unused_import
 // import 'package:catering/pay/view/pay.dart';
 // import 'package:catering/transaksi/view/transaksi.dart';
@@ -22,12 +23,13 @@ class ServiceProduct {
     var id_user = prefs.getString('id_user');
     var token = prefs.getString('token');
     // print(id);
-    // print(jumlah);
+    // print(harga - 10000);
     // print(harga);
     // print(id_user);
 
     Random objectname = Random();
     int number = objectname.nextInt(10000000);
+
     String username = 'SB-Mid-server-z5T9WhivZDuXrJxC7w-civ_k';
     String password = '';
     String basicAuth =
@@ -39,7 +41,7 @@ class ServiceProduct {
           'Content-Type': 'application/json'
         },
         body: jsonEncode({
-          'transaction_details': {'order_id': number, 'gross_amount': harga},
+          'transaction_details': {'order_id': number, 'gross_amount': int.parse(jumlah) * int.parse(harga)},
           "credit_card": {"secure": true}
         }));
     var jsonMidtrans = jsonDecode(responseMidtrans.body.toString());

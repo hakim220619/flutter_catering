@@ -89,42 +89,103 @@ class _DetailProductState extends State<DetailProduct> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Center(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        '${widget.gambar.toString()}',
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Center(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('${widget.nama_paket.toString()}',
-                              style: const TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold)),
-                          const SizedBox(width: 6),
-                          Text('${widget.keterangan.toString()}',
-                              style: const TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold)),
-                          const SizedBox(width: 6),
-                          Text('${widget.harga.toString()}',
-                              style: const TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold)),
-                        ]),
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 16.0, horizontal: 32.0),
                     child: Container(
                       child: Column(
                         children: [
+                          Center(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(0),
+                              child: Image.network(
+                                '${widget.gambar.toString()}',
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                    height: 10.0,
+                  ),
+
+                          TextFormField(
+                            initialValue: widget.nama_paket.toString(),
+                            onChanged: (value) {
+                              setState(() {
+                                jumlah = value;
+                              });
+                            },
+                            readOnly: true,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                                fillColor: Colors.grey.shade100,
+                                filled: true,
+                                hintText: "Masukan Nama Paket",
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                labelText: "Nama Paket"),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Nama Paket Pembelian tidak boleh kosong";
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          TextFormField(
+                            initialValue: widget.keterangan.toString(),
+                            onChanged: (value) {
+                              setState(() {
+                                jumlah = value;
+                              });
+                            },
+                            readOnly: true,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                                fillColor: Colors.grey.shade100,
+                                filled: true,
+                                hintText: "Masukan Keterangan",
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                labelText: "Keterangan"),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Keterangan Pembelian tidak boleh kosong";
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          TextFormField(
+                            initialValue: widget.harga.toString(),
+                            onChanged: (value) {
+                              setState(() {
+                                jumlah = value;
+                              });
+                            },
+                            readOnly: true,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                                fillColor: Colors.grey.shade100,
+                                filled: true,
+                                hintText: "Masukan Harga",
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                labelText: "Harga"),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Harga Pembelian tidak boleh kosong";
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
                           TextFormField(
                             controller: NamaBarang,
                             onChanged: (value) {
