@@ -105,9 +105,8 @@ class _DetailProductState extends State<DetailProduct> {
                             ),
                           ),
                           SizedBox(
-                    height: 10.0,
-                  ),
-
+                            height: 10.0,
+                          ),
                           TextFormField(
                             initialValue: widget.nama_paket.toString(),
                             onChanged: (value) {
