@@ -112,14 +112,23 @@ class _ListProductState extends State<ListProduct> {
                                 Row(
                                   children: [
                                     Text(
-                                      '${_get[i]['harga']}',
+                                      'Harga: ${_get[i]['harga']}',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15,
                                       ),
                                     ),
+                                    
                                   ],
-                                )
+                                  
+                                ),
+                                Text(
+                                      'Stok: ${_get[i]['stok']}',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                      ),
+                                    ),
                               ],
                             ),
                           ),
