@@ -45,7 +45,7 @@ class ServiceProduct {
           "credit_card": {"secure": true}
         }));
     var jsonMidtrans = jsonDecode(responseMidtrans.body.toString());
-    print(jsonMidtrans['redirect_url']);
+    // print(jsonMidtrans['redirect_url']);
 
     http.Response response = await http.post(_pesanUrl, headers: {
       "Accept": "application/json",

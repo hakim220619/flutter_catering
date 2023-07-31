@@ -1,4 +1,5 @@
 import 'package:catering/home/view/home.dart';
+import 'package:catering/profile/view/profile.dart';
 import 'package:catering/transaksi/view/transaksi_page.dart';
 import 'package:flutter/material.dart';
 // ignore: implementation_imports
@@ -89,13 +90,17 @@ class _MenuPageState extends State<MenuPage> {
             ListTile(
               leading: Icon(Icons.emoji_emotions),
               title: Text("Profil"),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (
+                      context,
+                    ) =>
+                            ProfilePage()));
+              },
             ),
-            ListTile(
-              leading: Icon(Icons.info),
-              title: Text("Tentang"),
-              onTap: () {},
-            ),
+            
           ],
         ),
       ),

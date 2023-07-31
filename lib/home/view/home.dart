@@ -17,18 +17,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _client = http.Client();
 
-  var _logoutUrl = Uri.parse('https://plavon.dlhcode.com/api/logout');
+  var _logoutUrl =
+      Uri.parse('https://katering.eastbluetechnology.com/api/auth/logout');
 
   Future Logout() async {
     try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       var token = preferences.getString('token');
-      http.Response response = await _client.get(_logoutUrl, headers: {
+      http.Response response = await _client.post(_logoutUrl, headers: {
         "Accept": "application/json",
         "Authorization": "Bearer " + token.toString(),
       });
       // print(token);
-      // print(response.body);
+      print(response.body);
       if (response.statusCode == 200) {
         SharedPreferences preferences = await SharedPreferences.getInstance();
         setState(() {
@@ -76,6 +77,7 @@ class _HomePageState extends State<HomePage> {
               child: Text(yesbutton),
               onPressed: () async {
                 Logout();
+                Navigator.of(context, rootNavigator: true).pop('dialog');
               },
             ),
           ],
