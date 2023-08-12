@@ -87,6 +87,8 @@ class _ListProductState extends State<ListProduct> {
                                     gambar: _get[i]['gambar'].toString(),
                                     keterangan:
                                         _get[i]['keterangan'].toString(),
+                                    stok:
+                                        _get[i]['stok'].toString(),
                                     created_at:
                                         _get[i]['created_at'].toString(),
                                   ),

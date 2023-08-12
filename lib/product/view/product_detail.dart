@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 import '../service/service_product.dart';
@@ -7,7 +9,7 @@ class DetailProduct extends StatefulWidget {
   final String id;
   final String nama_paket;
   final String harga;
-
+  final String stok;
   final String gambar;
   final String keterangan;
   final String created_at;
@@ -17,6 +19,7 @@ class DetailProduct extends StatefulWidget {
       required this.nama_paket,
       required this.harga,
       required this.gambar,
+      required this.stok,
       required this.keterangan,
       required this.created_at})
       : super(key: key);
@@ -216,7 +219,22 @@ class _DetailProductState extends State<DetailProduct> {
                   ),
                   InkWell(
                       onTap: () async {
-                        if (_formkey.currentState!.validate()) {
+                        if (int.parse(widget.stok) < int.parse(jumlah)) {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Peringatan'),
+                              content: const Text(
+                                  'Jumlah tidak boleh lebih dari Stok'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else if (_formkey.currentState!.validate()) {
                           _showMyDialog(
                               'Detail Pesanan',
                               'Pesanan anda sudah benar?',

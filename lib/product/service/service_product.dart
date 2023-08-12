@@ -10,7 +10,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:catering/product/service/data.dart';
 
-
 class ServiceProduct {
   static var _pesanmidtransUrl =
       Uri.parse('https://app.sandbox.midtrans.com/snap/v1/transactions');
@@ -22,10 +21,6 @@ class ServiceProduct {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var id_user = prefs.getString('id_user');
     var token = prefs.getString('token');
-    // print(id);
-    // print(harga - 10000);
-    // print(harga);
-    // print(id_user);
 
     Random objectname = Random();
     int number = objectname.nextInt(10000000);
@@ -41,7 +36,10 @@ class ServiceProduct {
           'Content-Type': 'application/json'
         },
         body: jsonEncode({
-          'transaction_details': {'order_id': number, 'gross_amount': int.parse(jumlah) * int.parse(harga)},
+          'transaction_details': {
+            'order_id': number,
+            'gross_amount': int.parse(jumlah) * int.parse(harga)
+          },
           "credit_card": {"secure": true}
         }));
     var jsonMidtrans = jsonDecode(responseMidtrans.body.toString());
