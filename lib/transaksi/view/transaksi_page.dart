@@ -38,7 +38,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
 
         setState(() {
           _get = data['data'];
-          print(_get);
+          // print(_get);
         });
         // print(_get[0]['order_id']);
 
@@ -134,6 +134,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                 ),
                 trailing: Text(_get[index]['status_pemesanan'].toString()),
                 onTap: () {
+                  // print(_get[index]['id'].toString());
                   if (_get[index]['status_pemesanan'] == 'Selesai') {
                     showDialog<String>(
                       context: context,
@@ -154,6 +155,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => PayPage(
+                          id: _get[index]['idpemesanan'].toString(),
                           nama_paket: _get[index]['nama_paket'].toString(),
                           total_bayar: _get[index]['total_bayar'].toString(),
                           status_pemesanan: _get[index]['status_pemesanan'].toString(),

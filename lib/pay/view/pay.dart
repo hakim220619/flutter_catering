@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 class PayPage extends StatefulWidget {
   const PayPage({
     Key? key,
+    required this.id,
     required this.nama_paket,
     required this.total_bayar,
     required this.status_pemesanan,
@@ -16,6 +17,7 @@ class PayPage extends StatefulWidget {
     required this.full_name,
     required this.redirect_url,
   }) : super(key: key);
+  final String id;
   final String nama_paket;
   final String total_bayar;
   final String status_pemesanan;
@@ -135,20 +137,35 @@ class _PayPageState extends State<PayPage> {
                 width: double.infinity,
                 color: Colors.redAccent[50],
                 child: Center(
-                    child: ElevatedButton(
-                  child: Text("Bayar Sekarang"),
-                  onPressed: () async {
-                    String url = widget.redirect_url;
-                    var urllaunchable = await canLaunch(
-                        url); //canLaunch is from url_launcher package
-                    if (urllaunchable) {
-                      await launch(
-                          url); //launch is from url_launcher package to launch URL
-                    } else {
-                      print("URL can't be launched.");
-                    }
-                  },
-                )),
+                    child: widget.status_pemesanan == "Lunas"
+                        ? ElevatedButton(
+                            child: Text("Invoice"),
+                            onPressed: () async {
+                              String url =
+                                  "https://katering-front.eastbluetechnology.com/admin/cetak_invoice/${widget.id}";
+                              var urllaunchable = await canLaunch(
+                                  url); //canLaunch is from url_launcher package
+                              if (urllaunchable) {
+                                await launch(
+                                    url); //launch is from url_launcher package to launch URL
+                              } else {
+                                print("URL can't be launched.");
+                              }
+                            })
+                        : ElevatedButton(
+                            child: Text("Bayar Sekarang"),
+                            onPressed: () async {
+                              String url = widget.redirect_url;
+                              var urllaunchable = await canLaunch(
+                                  url); //canLaunch is from url_launcher package
+                              if (urllaunchable) {
+                                await launch(
+                                    url); //launch is from url_launcher package to launch URL
+                              } else {
+                                print("URL can't be launched.");
+                              }
+                            },
+                          )),
               ),
             ],
           ),

@@ -1,7 +1,8 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../service/service_product.dart';
 // import 'package:catering/product/service/service_product.dart';
 
@@ -9,7 +10,6 @@ class DetailProduct extends StatefulWidget {
   final String id;
   final String nama_paket;
   final String harga;
-  final String stok;
   final String gambar;
   final String keterangan;
   final String created_at;
@@ -19,7 +19,6 @@ class DetailProduct extends StatefulWidget {
       required this.nama_paket,
       required this.harga,
       required this.gambar,
-      required this.stok,
       required this.keterangan,
       required this.created_at})
       : super(key: key);
@@ -32,6 +31,7 @@ late String jumlah;
 
 class _DetailProductState extends State<DetailProduct> {
   TextEditingController NamaBarang = TextEditingController();
+  TextEditingController dateofJourney = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   // TextEditingController Email = TextEditingController();
   // TextEditingController Nohp = TextEditingController();
@@ -67,7 +67,10 @@ class _DetailProductState extends State<DetailProduct> {
                 child: Text(yesbutton),
                 onPressed: () async {
                   await ServiceProduct.pesan(widget.id.toString(),
-                      jumlah.toString(), widget.harga.toString(), context);
+                      jumlah.toString(),
+                      widget.harga.toString(),
+                      dateofJourney.text,
+                      context);
                 },
               ),
             ],
@@ -188,6 +191,42 @@ class _DetailProductState extends State<DetailProduct> {
                           SizedBox(
                             height: 10.0,
                           ),
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: TextFormField(
+                              readOnly: true,
+                              controller: dateofJourney,
+                              decoration: InputDecoration(
+                                  fillColor: Colors.grey.shade100,
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  hintText: 'Pilih Tanggal'),
+                              validator: (value) {
+                                if (value == false)
+                                  return 'Silahkan Pilih Tanggal';
+                                return null;
+                              },
+                              onTap: () async {
+                                DateFormat('dd/mm/yyyy').format(DateTime.now());
+                                var date = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime.now(),
+                                    lastDate: DateTime(2100));
+                                if (date == null) {
+                                  dateofJourney.text = "";
+                                } else {
+                                  dateofJourney.text =
+                                      date.toString().substring(0, 10);
+                                  // print(dateofJourney);
+                                }
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
                           TextFormField(
                             controller: NamaBarang,
                             onChanged: (value) {
@@ -219,22 +258,7 @@ class _DetailProductState extends State<DetailProduct> {
                   ),
                   InkWell(
                       onTap: () async {
-                        if (int.parse(widget.stok) < int.parse(jumlah)) {
-                          showDialog<String>(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              title: const Text('Peringatan'),
-                              content: const Text(
-                                  'Jumlah tidak boleh lebih dari Stok'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            ),
-                          );
-                        } else if (_formkey.currentState!.validate()) {
+                        if (_formkey.currentState!.validate()) {
                           _showMyDialog(
                               'Detail Pesanan',
                               'Pesanan anda sudah benar?',

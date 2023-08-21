@@ -17,11 +17,12 @@ class ServiceProduct {
   static var _pesanUrl =
       Uri.parse("https://katering.eastbluetechnology.com/api/pemesanan");
 
-  static pesan(id, jumlah, harga, context) async {
+  static pesan(id, jumlah, harga, dateofJourney, context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var id_user = prefs.getString('id_user');
     var token = prefs.getString('token');
-
+// print(int.parse(jumlah));
+    // print(id_user);
     Random objectname = Random();
     int number = objectname.nextInt(10000000);
 
@@ -43,7 +44,7 @@ class ServiceProduct {
           "credit_card": {"secure": true}
         }));
     var jsonMidtrans = jsonDecode(responseMidtrans.body.toString());
-    // print(jsonMidtrans['redirect_url']);
+    print(dateofJourney);
 
     http.Response response = await http.post(_pesanUrl, headers: {
       "Accept": "application/json",
@@ -53,11 +54,12 @@ class ServiceProduct {
       "idPaket": id.toString(),
       "jumlah_pesan": jumlah.toString(),
       "harga": harga.toString(),
+      "untuk_tanggal": dateofJourney.toString(),
       "status": "belum bayar",
       "order_id": number.toString(),
       "redirect_url": jsonMidtrans['redirect_url'].toString(),
     });
-    // print(response.body);
+    print(response.body);
     if (response.statusCode == 200) {
       // ignore: unused_local_variable
       var json = jsonDecode(response.body.toString());
